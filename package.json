@@ -1,11 +1,18 @@
 {
   "name": "react-page-slides",
   "version": "0.1.0",
+  "license": "MIT",
+  "author": {
+    "name" : "Andrii Golubenko",
+    "email" : "wermetal@gmail.com"
+  },
+  "repository": "https://github.com/wermetal/react-page-slides.git",
   "private": true,
+  "keywords": ["fullpage", "parallax", "fullscreen", "react", "react-fullpage", "fullpage-react", "fullpage-scroll"],
+  "main": "dist/index.js",
   "dependencies": {
     "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-scripts-ts": "2.17.0"
+    "react-dom": "^16.5.2"
   },
   "scripts": {
     "start": "react-scripts-ts start",
@@ -18,6 +25,7 @@
     "@types/node": "^10.10.1",
     "@types/react": "^16.4.14",
     "@types/react-dom": "^16.0.7",
-    "typescript": "^3.0.3"
+    "typescript": "^3.0.3",
+    "react-scripts-ts": "2.17.0"
   }
 }
