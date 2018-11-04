@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { AutoSlidesContainer } from './AutoSlidesContainer';
 import { ManualSlidesContainer } from './ManualSlidesContainer';
-import './PageSlides.css';
 import { ISlideConfig } from "../models/ISlideConfig";
 interface IPageSlidesProps {
     enableAutoScroll: boolean;

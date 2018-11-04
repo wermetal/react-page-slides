@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import './AutoSlidesContainer.css';
 import { ISlideConfig } from "../models/ISlideConfig";
 interface IAutoSlidesContainerProps {
     height: number;
@@ -42,10 +41,7 @@ export declare class AutoSlidesContainer extends React.Component<IAutoSlidesCont
     getHeight(): number;
     getScrollToTop(): number;
     onTransitionEnd: () => void;
-    getContainerStyle(): {
-        transform: string;
-        transition: string;
-    };
     render(): JSX.Element;
+    private getContainerStyle;
 }
 export {};

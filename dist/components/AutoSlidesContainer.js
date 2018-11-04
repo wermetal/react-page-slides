@@ -27,7 +27,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var PropTypes = require("prop-types");
 var AutoSlide_1 = require("./AutoSlide");
-require("./AutoSlidesContainer.css");
 var AutoSlidesContainer = /** @class */ (function (_super) {
     __extends(AutoSlidesContainer, _super);
     function AutoSlidesContainer() {
@@ -129,15 +128,20 @@ var AutoSlidesContainer = /** @class */ (function (_super) {
     AutoSlidesContainer.prototype.getScrollToTop = function () {
         return this.state.currentSlideIndex * this.getHeight() * -1;
     };
+    AutoSlidesContainer.prototype.render = function () {
+        return (React.createElement("div", { className: "rps-auto-slides-container", style: this.getContainerStyle(), onTransitionEnd: this.onTransitionEnd }, this.renderSlides()));
+    };
     AutoSlidesContainer.prototype.getContainerStyle = function () {
         var scrollToTop = this.getScrollToTop();
         return {
             transform: "translate3d(0px, " + scrollToTop + "px, 0px)",
-            transition: "all " + this.props.transitionSpeed + "ms ease"
+            transition: "all " + this.props.transitionSpeed + "ms ease",
+            height: '100%',
+            position: 'relative',
+            touchAction: 'none',
+            padding: 0,
+            margin: 0
         };
-    };
-    AutoSlidesContainer.prototype.render = function () {
-        return (React.createElement("div", { className: "rps-auto-slides-container", style: this.getContainerStyle(), onTransitionEnd: this.onTransitionEnd }, this.renderSlides()));
     };
     AutoSlidesContainer.propTypes = {
         height: PropTypes.number.isRequired,

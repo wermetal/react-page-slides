@@ -25,7 +25,6 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-require("./ManualSlidesContainer.css");
 var ManualSlide_1 = require("./ManualSlide");
 var ManualSlidesContainer = /** @class */ (function (_super) {
     __extends(ManualSlidesContainer, _super);
@@ -73,17 +72,25 @@ var ManualSlidesContainer = /** @class */ (function (_super) {
             return (React.createElement(ManualSlide_1.ManualSlide, __assign({}, props, { isCurrent: isCurrent, scrollTop: isCurrent ? _this.state.scrollTop : 0, height: height, isBottom: isBottom, key: index })));
         });
     };
-    ManualSlidesContainer.prototype.getContainerStyle = function () {
-        var height = this.getHeight();
-        return {
-            height: height + "px",
-        };
-    };
     ManualSlidesContainer.prototype.render = function () {
         var _this = this;
         return (React.createElement("div", { className: "rps-manual-slides-container", style: this.getContainerStyle(), ref: function (ref) {
                 _this.container = ref;
             } }, this.renderSlides()));
+    };
+    ManualSlidesContainer.prototype.getContainerStyle = function () {
+        var height = this.getHeight();
+        return {
+            height: height + "px",
+            position: 'relative',
+            touchAction: 'none',
+            padding: 0,
+            margin: 0,
+            transform: 'translate3d(0px, 0px, 0px)',
+            transition: 'none 0s ease 0s',
+            overflow: 'scroll',
+            WebkitOverflowScrolling: 'touch'
+        };
     };
     ManualSlidesContainer.defaultProps = {
         enableAutoScroll: false

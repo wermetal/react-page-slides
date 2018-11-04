@@ -2,7 +2,7 @@ import {CSSProperties} from "react";
 
 export interface ISlideConfig {
     content: any;
-    parallax: {
+    parallax?: {
         offset: number;
     };
     style: CSSProperties

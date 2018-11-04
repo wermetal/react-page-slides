@@ -25,7 +25,6 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-require("./ManualSlide.css");
 var ManualSlide = /** @class */ (function (_super) {
     __extends(ManualSlide, _super);
     function ManualSlide() {
@@ -34,30 +33,45 @@ var ManualSlide = /** @class */ (function (_super) {
     ManualSlide.prototype.getHeight = function () {
         return this.props.height;
     };
+    ManualSlide.prototype.render = function () {
+        return (React.createElement("div", { className: "rps-slide", style: this.getSliderStyles() },
+            React.createElement("div", { className: "rps-slide__inner-container", style: this.getSlideInnerContainerStyles() },
+                React.createElement("div", { className: "rps-slide-background", style: this.getBackgroundStyles() }),
+                this.props.content)));
+    };
     ManualSlide.prototype.getSliderStyles = function () {
         return {
             height: this.getHeight() + "px",
+            position: 'relative',
+            width: '100%',
+            overflow: 'hidden',
+            boxSizing: 'border-box'
         };
     };
     ManualSlide.prototype.getBackgroundStyles = function () {
         var translateY = 0;
         if (this.props.isCurrent) {
             if (this.props.scrollTop !== 0) {
-                translateY = -1 * (this.getHeight() - this.props.scrollTop) * this.props.parallax.offset;
+                translateY = -1 * (this.getHeight() - this.props.scrollTop) * this.getParallaxOffset();
             }
         }
         else {
             if (this.props.isBottom) {
-                translateY = -1 * this.getHeight() * this.props.parallax.offset;
+                translateY = -1 * this.getHeight() * this.getParallaxOffset();
             }
         }
-        return __assign({}, this.props.style, { height: this.getHeight() + "px", width: '100%', transform: "translateX(0px) translateY(" + translateY + "px)", position: 'absolute', top: 0, left: 0, zIndex: -1 });
+        return __assign({}, this.props.style, { height: this.getHeight() + "px", width: '100%', transform: "translateX(0px) translateY(" + translateY + "px)", position: 'absolute', margin: 0, padding: 0, backfaceVisibility: 'hidden', top: 0, left: 0, zIndex: -1 });
     };
-    ManualSlide.prototype.render = function () {
-        return (React.createElement("div", { className: "rps-slide", style: this.getSliderStyles() },
-            React.createElement("div", { className: "rps-slide__inner-container", style: { height: this.getHeight() + "px" } },
-                React.createElement("div", { className: "rps-slide-background", style: this.getBackgroundStyles() }),
-                this.props.content)));
+    ManualSlide.prototype.getParallaxOffset = function () {
+        return this.props.parallax ? this.props.parallax.offset : 0;
+    };
+    ManualSlide.prototype.getSlideInnerContainerStyles = function () {
+        return {
+            height: this.getHeight() + "px",
+            position: 'relative',
+            width: '100%',
+            overflow: 'hidden'
+        };
     };
     ManualSlide.defaultProps = {
         style: {}

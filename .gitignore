@@ -10,6 +10,8 @@
 /build
 
 .idea
+/example/dist
+dist
 
 # misc
 .DS_Store

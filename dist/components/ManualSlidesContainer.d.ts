@@ -1,5 +1,4 @@
 import * as React from 'react';
-import './ManualSlidesContainer.css';
 import { ISlideConfig } from "../models/ISlideConfig";
 interface IManualSlidesContainerProps {
     height: number;
@@ -28,9 +27,7 @@ export declare class ManualSlidesContainer extends React.PureComponent<IManualSl
     componentDidMount(): void;
     getHeight(): number;
     renderSlides(): JSX.Element[];
-    getContainerStyle(): {
-        height: string;
-    };
     render(): JSX.Element;
+    private getContainerStyle;
 }
 export {};

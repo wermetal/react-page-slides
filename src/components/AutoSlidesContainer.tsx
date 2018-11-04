@@ -2,8 +2,8 @@ import * as React  from 'react';
 import * as PropTypes from 'prop-types';
 import {AutoSlide} from './AutoSlide';
 
-import './AutoSlidesContainer.css';
 import {ISlideConfig} from "../models/ISlideConfig";
+import {CSSProperties} from "react";
 
 interface IAutoSlidesContainerProps {
     height: number;
@@ -145,14 +145,6 @@ export class AutoSlidesContainer extends React.Component<IAutoSlidesContainerPro
         });
     };
 
-    getContainerStyle() {
-        const scrollToTop = this.getScrollToTop();
-        return {
-            transform: `translate3d(0px, ${scrollToTop}px, 0px)`,
-            transition: `all ${this.props.transitionSpeed}ms ease`
-        };
-    }
-
     render() {
         return (
             <div className="rps-auto-slides-container"
@@ -162,5 +154,18 @@ export class AutoSlidesContainer extends React.Component<IAutoSlidesContainerPro
                 {this.renderSlides()}
             </div>
         )
+    }
+
+    private getContainerStyle() {
+        const scrollToTop = this.getScrollToTop();
+        return {
+            transform: `translate3d(0px, ${scrollToTop}px, 0px)`,
+            transition: `all ${this.props.transitionSpeed}ms ease`,
+            height: '100%',
+            position: 'relative',
+            touchAction: 'none',
+            padding: 0,
+            margin: 0
+        } as CSSProperties;
     }
 }

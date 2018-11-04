@@ -1,7 +1,7 @@
 import * as React from 'react';
-import './ManualSlidesContainer.css';
 import {ManualSlide} from './ManualSlide';
 import {ISlideConfig} from "../models/ISlideConfig";
+import {CSSProperties} from "react";
 
 interface IManualSlidesContainerProps {
     height: number;
@@ -75,13 +75,6 @@ export class ManualSlidesContainer extends React.PureComponent<IManualSlidesCont
         });
     }
 
-    getContainerStyle() {
-        const height = this.getHeight();
-        return {
-            height: `${height}px`,
-        };
-    }
-
     render() {
         return (
             <div className="rps-manual-slides-container"
@@ -93,5 +86,20 @@ export class ManualSlidesContainer extends React.PureComponent<IManualSlidesCont
                 {this.renderSlides()}
             </div>
         )
+    }
+
+    private getContainerStyle() {
+        const height = this.getHeight();
+        return {
+            height: `${height}px`,
+            position: 'relative',
+            touchAction: 'none',
+            padding: 0,
+            margin: 0,
+            transform: 'translate3d(0px, 0px, 0px)',
+            transition: 'none 0s ease 0s',
+            overflow: 'scroll',
+            WebkitOverflowScrolling: 'touch'
+        } as CSSProperties;
     }
 }

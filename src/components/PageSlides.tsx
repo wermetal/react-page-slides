@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {AutoSlidesContainer} from './AutoSlidesContainer';
 import {ManualSlidesContainer} from './ManualSlidesContainer';
-import './PageSlides.css';
 import {ISlideConfig} from "../models/ISlideConfig";
 
 interface IPageSlidesProps {
@@ -27,7 +26,7 @@ export class PageSlides extends React.Component<IPageSlidesProps, IPageSlidesSta
 
     componentDidMount() {
         this.onResize();
-        document.getElementsByTagName('body')[0].className = 'rps-enabled';
+        document.getElementsByTagName('body')[0].style.overflow = 'hidden';
         window.addEventListener('resize', this.onResize);
     }
 

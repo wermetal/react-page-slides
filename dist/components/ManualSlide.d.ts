@@ -1,5 +1,4 @@
 import * as React from 'react';
-import './ManualSlide.css';
 import { ISlideConfig } from "../models/ISlideConfig";
 import { ISlideProps } from "../models/ISlideProps";
 interface IManualSlideProps extends ISlideConfig, ISlideProps {
@@ -10,10 +9,10 @@ export declare class ManualSlide extends React.PureComponent<IManualSlideProps> 
         style: {};
     };
     getHeight(): number;
-    getSliderStyles(): {
-        height: string;
-    };
-    getBackgroundStyles(): React.CSSProperties;
     render(): JSX.Element;
+    private getSliderStyles;
+    private getBackgroundStyles;
+    private getParallaxOffset;
+    private getSlideInnerContainerStyles;
 }
 export {};

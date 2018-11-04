@@ -16,7 +16,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var AutoSlidesContainer_1 = require("./AutoSlidesContainer");
 var ManualSlidesContainer_1 = require("./ManualSlidesContainer");
-require("./PageSlides.css");
 var PageSlides = /** @class */ (function (_super) {
     __extends(PageSlides, _super);
     function PageSlides() {
@@ -31,7 +30,7 @@ var PageSlides = /** @class */ (function (_super) {
     }
     PageSlides.prototype.componentDidMount = function () {
         this.onResize();
-        document.getElementsByTagName('body')[0].className = 'rps-enabled';
+        document.getElementsByTagName('body')[0].style.overflow = 'hidden';
         window.addEventListener('resize', this.onResize);
     };
     PageSlides.prototype.componentWillUnmount = function () {
