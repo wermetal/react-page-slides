@@ -47,7 +47,11 @@ export class AutoSlide extends React.PureComponent<IAutoSlide> {
     }
 
     private getParallaxOffset() {
-        return this.props.parallax ? this.props.parallax.offset : 0;
+        const parallaxOffset = this.props.parallax ? this.props.parallax.offset : 0;
+        if (parallaxOffset > 1 || parallaxOffset < 0) {
+            throw new Error('parallax offset must be between 0 and 1');
+        }
+        return parallaxOffset;
     }
 
     private getBackgroundStyles(): CSSProperties {

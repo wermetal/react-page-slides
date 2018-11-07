@@ -113,6 +113,10 @@ export class AutoSlidesContainer extends React.Component<IAutoSlidesContainerPro
         }
     }
 
+    getHeight() {
+        return this.props.height;
+    }
+
     renderSlides() {
         const height = this.getHeight();
         return this.props.slides.map((props, index) => {
@@ -128,10 +132,6 @@ export class AutoSlidesContainer extends React.Component<IAutoSlidesContainerPro
                     key={index}/>
             );
         });
-    }
-
-    getHeight() {
-        return this.props.height;
     }
 
     getScrollToTop() {
