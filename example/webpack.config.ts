@@ -40,7 +40,7 @@ const config: webpack.Configuration = {
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
         compress: true,
-        port: 8080
+        port: 8088
     }
 };
 

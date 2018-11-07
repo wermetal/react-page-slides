@@ -38,6 +38,7 @@
     "@types/webpack-dev-server": "^3.1.1",
     "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^1.0.1",
+    "dat.gui": "^0.7.3",
     "html-webpack-plugin": "^3.2.0",
     "react-scripts-ts": "2.17.0",
     "style-loader": "^0.23.1",
