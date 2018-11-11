@@ -1,15 +1,22 @@
 import * as React from 'react';
+import {CSSProperties} from 'react';
 import {ISlideConfig} from "../models/ISlideConfig";
-import {CSSProperties} from "react";
 import {ISlideProps} from "../models/ISlideProps";
+import {ISlidePrallaxConfig} from "../models/ISlidePrallaxConfig";
+import {SlideParallaxType} from "../models/SlideParallaxType";
 
 interface IAutoSlide extends ISlideConfig, ISlideProps {
     transitionSpeed: number;
+    parallax: ISlidePrallaxConfig;
 }
 
 export class AutoSlide extends React.PureComponent<IAutoSlide> {
     static defaultProps = {
-        style: {}
+        style: {},
+        parallax: {
+            offset: 0,
+            type: 'below'
+        }
     };
 
     render() {
@@ -54,11 +61,19 @@ export class AutoSlide extends React.PureComponent<IAutoSlide> {
         return parallaxOffset;
     }
 
+    private getParallaxType() {
+        return this.props.parallax ? this.props.parallax.type : SlideParallaxType.reveal;
+    }
+
     private getBackgroundStyles(): CSSProperties {
         let translateY = 0;
-        if (this.props.isBottom) {
+        if (this.props.isBottom && this.getParallaxType() === SlideParallaxType.reveal) {
             translateY = -1 * this.getParallaxOffset() * this.getHeight();
         }
+        if (this.props.isTop && this.getParallaxType() === SlideParallaxType.cover) {
+            translateY = this.getParallaxOffset() * this.getHeight();
+        }
+
         let styles = {
             backgroundSize: 'cover',
             ...this.props.style,
@@ -73,7 +88,10 @@ export class AutoSlide extends React.PureComponent<IAutoSlide> {
             left: 0,
             zIndex: -1,
         };
-        if (this.props.isBottom || this.props.isCurrent) {
+        if (this.props.isCurrent
+            || this.props.isBottom && this.getParallaxType() === SlideParallaxType.reveal
+            || this.props.isTop && this.getParallaxType() === SlideParallaxType.cover
+        ) {
             styles = {
                 ...styles,
                 transition: `all ${this.props.transitionSpeed}ms ease`,

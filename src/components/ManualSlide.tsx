@@ -1,10 +1,13 @@
 import * as React from 'react';
+import {CSSProperties} from 'react';
 import {ISlideConfig} from "../models/ISlideConfig";
 import {ISlideProps} from "../models/ISlideProps";
-import {CSSProperties} from "react";
+import {ISlidePrallaxConfig} from "../models/ISlidePrallaxConfig";
+import {SlideParallaxType} from "../models/SlideParallaxType";
 
 interface IManualSlideProps extends ISlideConfig, ISlideProps {
     scrollTop: number;
+    parallax: ISlidePrallaxConfig;
 }
 
 export class ManualSlide extends React.PureComponent<IManualSlideProps> {
@@ -37,17 +40,20 @@ export class ManualSlide extends React.PureComponent<IManualSlideProps> {
         } as CSSProperties;
     }
 
+    private getParallaxType() {
+        return this.props.parallax ? this.props.parallax.type : SlideParallaxType.reveal;
+    }
+
     private getBackgroundStyles() {
         let translateY = 0;
 
-        if (this.props.isCurrent) {
+        if (this.props.isCurrent && this.getParallaxType() === SlideParallaxType.reveal) {
             if (this.props.scrollTop !== 0) {
                 translateY = -1 * (this.getHeight() - this.props.scrollTop) * this.getParallaxOffset();
             }
-        } else {
-            if (this.props.isBottom) {
-                translateY = -1 * this.getHeight() * this.getParallaxOffset();
-            }
+        }
+        if (this.props.isTop && this.getParallaxType() === SlideParallaxType.cover) {
+            translateY = (this.props.scrollTop) * this.getParallaxOffset();
         }
 
         return {

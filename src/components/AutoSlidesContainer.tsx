@@ -4,11 +4,13 @@ import {AutoSlide} from './AutoSlide';
 
 import {ISlideConfig} from "../models/ISlideConfig";
 import {CSSProperties} from "react";
+import {ISlidePrallaxConfig} from "../models/ISlidePrallaxConfig";
 
 interface IAutoSlidesContainerProps {
     height: number;
     transitionSpeed: number;
     slides: ISlideConfig[];
+    parallax: ISlidePrallaxConfig;
 }
 
 interface IAutoSlidesContainerState {
@@ -121,14 +123,17 @@ export class AutoSlidesContainer extends React.Component<IAutoSlidesContainerPro
         const height = this.getHeight();
         return this.props.slides.map((props, index) => {
             const isCurrent = index === this.state.currentSlideIndex;
+            const isTop = index < this.state.currentSlideIndex;
             const isBottom = index > this.state.currentSlideIndex;
             return (
                 <AutoSlide
                     {...props}
                     isCurrent={isCurrent}
-                    transitionSpeed={this.props.transitionSpeed}
-                    height={height}
+                    isTop={isTop}
                     isBottom={isBottom}
+                    transitionSpeed={this.props.transitionSpeed}
+                    parallax={this.props.parallax}
+                    height={height}
                     key={index}/>
             );
         });

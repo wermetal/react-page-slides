@@ -2,11 +2,13 @@ import * as React from 'react';
 import {ManualSlide} from './ManualSlide';
 import {ISlideConfig} from "../models/ISlideConfig";
 import {CSSProperties} from "react";
+import {ISlidePrallaxConfig} from "../models/ISlidePrallaxConfig";
 
 interface IManualSlidesContainerProps {
     height: number;
     enableAutoScroll: boolean;
     slides: ISlideConfig[];
+    parallax: ISlidePrallaxConfig;
 }
 
 interface IManualSlidesContainerState {
@@ -62,13 +64,17 @@ export class ManualSlidesContainer extends React.PureComponent<IManualSlidesCont
         return this.props.slides.map((props, index) => {
             const isCurrent = index === this.state.currentSlideIndex;
             const isBottom = index > this.state.currentSlideIndex;
+            const isTop = index < this.state.currentSlideIndex;
+
             return (
                 <ManualSlide
                     {...props}
                     isCurrent={isCurrent}
-                    scrollTop={isCurrent ? this.state.scrollTop : 0}
-                    height={height}
+                    isTop={isTop}
                     isBottom={isBottom}
+                    scrollTop={isCurrent || isTop ? this.state.scrollTop : 0}
+                    parallax={this.props.parallax}
+                    height={height}
                     key={index}
                 />
             );

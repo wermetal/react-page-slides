@@ -2,10 +2,12 @@ import * as React from 'react';
 import {AutoSlidesContainer} from './AutoSlidesContainer';
 import {ManualSlidesContainer} from './ManualSlidesContainer';
 import {ISlideConfig} from "../models/ISlideConfig";
+import {ISlidePrallaxConfig} from "../models/ISlidePrallaxConfig";
 
 interface IPageSlidesProps {
     enableAutoScroll: boolean;
     transitionSpeed: number;
+    parallax: ISlidePrallaxConfig;
     slides: ISlideConfig[];
 }
 
@@ -57,6 +59,7 @@ export class PageSlides extends React.Component<IPageSlidesProps, IPageSlidesSta
         return <ContainerComponent
             slides={this.props.slides}
             height={this.state.height}
+            parallax={this.props.parallax}
             transitionSpeed={this.props.transitionSpeed}
         />
     }

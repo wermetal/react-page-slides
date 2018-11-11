@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ISlideConfig, PageSlides} from '../../src';
+import {ISlideConfig, PageSlides, SlideParallaxType} from '../../src';
 import {Settings} from "./models/Settings";
 import './style.css';
 
@@ -11,6 +11,10 @@ export class MainPage extends React.Component<Settings> {
                 enableAutoScroll={this.props.enableAutoScroll}
                 transitionSpeed={this.props.transitionSpeed}
                 slides={this.getSlides()}
+                parallax={{
+                    offset: this.props.parallaxOffset,
+                    type: this.props.parallaxType
+                }}
             />
         );
     };
@@ -21,27 +25,18 @@ export class MainPage extends React.Component<Settings> {
                 content: this.getFirstPageContent(),
                 style: {
                     backgroundImage: 'url("public/photo/photo_1.jpg")'
-                },
-                parallax: {
-                    offset: this.props.parallaxOffset
                 }
             },
             {
                 content: this.getSecondPageContent(),
                 style: {
                     backgroundImage: 'url("public/photo/photo_2.jpg")'
-                },
-                parallax: {
-                    offset: this.props.parallaxOffset
                 }
             },
             {
                 content: this.getThirdPageContent(),
                 style: {
                     backgroundImage: 'url("public/photo/photo_3.jpg")'
-                },
-                parallax: {
-                    offset: this.props.parallaxOffset
                 }
             }
         ];
