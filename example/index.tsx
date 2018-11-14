@@ -14,8 +14,13 @@ const datGuiWidget = new DatGuiWidget();
 datGuiWidget.init(settings);
 datGuiWidget.registerOnChange(() => {
     ReactDOM.render(
-        <MainPage {...settings} />,
+        <MainPage {...settings} onChange={onChangePageIndex}/>,
         app
     );
 });
 datGuiWidget.emitOnChange();
+
+function onChangePageIndex(index: number) {
+    settings.currentSlideIndex = index.toString();
+    datGuiWidget.update()
+}

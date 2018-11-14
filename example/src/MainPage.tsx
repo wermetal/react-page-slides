@@ -1,15 +1,20 @@
 import * as React from 'react';
-import {ISlideConfig, PageSlides, SlideParallaxType} from '../../src';
+import {ISlideConfig, PageSlides} from '../../src';
 import {Settings} from "./models/Settings";
 import './style.css';
 
+interface IMainPageProps extends Settings {
+    onChange: (index: number) => void
+}
 
-export class MainPage extends React.Component<Settings> {
+export class MainPage extends React.Component<IMainPageProps> {
     render() {
         return (
             <PageSlides
                 enableAutoScroll={this.props.enableAutoScroll}
                 transitionSpeed={this.props.transitionSpeed}
+                currentSlideIndex={this.props.currentSlideIndex !== '' ? parseInt(this.props.currentSlideIndex) : -1}
+                onChange={this.props.onChange}
                 slides={this.getSlides()}
                 parallax={{
                     offset: this.props.parallaxOffset,

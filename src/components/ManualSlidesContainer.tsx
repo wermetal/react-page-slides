@@ -9,11 +9,14 @@ interface IManualSlidesContainerProps {
     enableAutoScroll: boolean;
     slides: ISlideConfig[];
     parallax: ISlidePrallaxConfig;
+    currentSlideIndex: number;
+    onChange?: (index: number) => void;
 }
 
 interface IManualSlidesContainerState {
     scrollToTop: number;
     currentSlideIndex: number;
+    userSlideIndex?: number;
     transition: boolean;
     scrollTop: number,
     block: boolean;
@@ -21,8 +24,13 @@ interface IManualSlidesContainerState {
 
 export class ManualSlidesContainer extends React.PureComponent<IManualSlidesContainerProps, IManualSlidesContainerState> {
     static defaultProps = {
-        enableAutoScroll: false
+        enableAutoScroll: false,
+        onChange: () => {}
     };
+
+    static isValidSlideIndex(slideIndex: number, props: IManualSlidesContainerProps) {
+        return slideIndex < props.slides.length && slideIndex >= 0
+    }
 
     public state = {
         scrollToTop: 0,
@@ -53,6 +61,18 @@ export class ManualSlidesContainer extends React.PureComponent<IManualSlidesCont
                 }
             }
         });
+    }
+
+    componentDidUpdate(prevProps: IManualSlidesContainerProps, prevState: IManualSlidesContainerState) {
+        if (prevState.currentSlideIndex !== this.state.currentSlideIndex) {
+            this.props.onChange!(this.state.currentSlideIndex);
+        }
+        if (typeof this.props.currentSlideIndex !=='undefined'
+            && this.props.currentSlideIndex !== prevProps.currentSlideIndex
+            && ManualSlidesContainer.isValidSlideIndex(this.props.currentSlideIndex, this.props)
+        ) {
+            this.container.scrollTop = this.getHeight() * this.props.currentSlideIndex
+        }
     }
 
     getHeight() {

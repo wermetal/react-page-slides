@@ -5,4 +5,5 @@ export class Settings {
     public transitionSpeed = 1000;
     public enableAutoScroll = true;
     public parallaxType = SlideParallaxType.reveal;
+    public currentSlideIndex = '';
 }

@@ -9,6 +9,8 @@ interface IPageSlidesProps {
     transitionSpeed: number;
     parallax: ISlidePrallaxConfig;
     slides: ISlideConfig[];
+    currentSlideIndex?: number;
+    onChange?: (index: number) => void;
 }
 
 interface IPageSlidesState {
@@ -61,6 +63,8 @@ export class PageSlides extends React.Component<IPageSlidesProps, IPageSlidesSta
             height={this.state.height}
             parallax={this.props.parallax}
             transitionSpeed={this.props.transitionSpeed}
+            currentSlideIndex={this.props.currentSlideIndex}
+            onChange={this.props.onChange}
         />
     }
 }

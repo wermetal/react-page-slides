@@ -1,5 +1,4 @@
 import * as React  from 'react';
-import * as PropTypes from 'prop-types';
 import {AutoSlide} from './AutoSlide';
 
 import {ISlideConfig} from "../models/ISlideConfig";
@@ -11,36 +10,47 @@ interface IAutoSlidesContainerProps {
     transitionSpeed: number;
     slides: ISlideConfig[];
     parallax: ISlidePrallaxConfig;
+    currentSlideIndex: number;
+    onChange?: (index: number) => void;
 }
 
 interface IAutoSlidesContainerState {
-    startScroll: number;
     currentSlideIndex: number;
-    transition: boolean;
-    block: boolean;
+    userSlideIndex?: number;
 }
 
 export class AutoSlidesContainer extends React.Component<IAutoSlidesContainerProps, IAutoSlidesContainerState> {
-    public static propTypes = {
-        height: PropTypes.number.isRequired,
-        slides: PropTypes.array.isRequired,
-        transitionSpeed: PropTypes.number.isRequired
-    };
 
     public static defaultProps = {
-        transitionSpeed: 2000
+        transitionSpeed: 2000,
+        onChange: () => {}
     };
 
+    static getDerivedStateFromProps(props: IAutoSlidesContainerProps, state: IAutoSlidesContainerState) {
+        if (typeof props.currentSlideIndex !=='undefined'
+            && props.currentSlideIndex !== state.userSlideIndex
+            && AutoSlidesContainer.isValidSlideIndex(props.currentSlideIndex, props)
+        ) {
+            return {
+                currentSlideIndex: props.currentSlideIndex,
+                userSlideIndex: props.currentSlideIndex
+            }
+        }
+        return null;
+    }
+
+    static isValidSlideIndex(slideIndex: number, props: IAutoSlidesContainerProps) {
+        return slideIndex < props.slides.length && slideIndex >= 0
+    }
+
     public state = {
-        startScroll: 0,
         currentSlideIndex: 0,
-        transition: false,
-        block: false
     };
 
     private touchStart: number;
     private prevWheel = 0;
-    private  scrollValue = 0;
+    private scrollValue = 0;
+    private block = false;
 
     componentDidMount() {
         window.addEventListener('wheel', this.handleMouseWheel, {passive: false});
@@ -48,6 +58,12 @@ export class AutoSlidesContainer extends React.Component<IAutoSlidesContainerPro
         window.addEventListener('keydown', this.handleKeyDown);
         window.addEventListener('touchstart', this.handleTouchStart);
         window.addEventListener('touchmove', this.handleTouchMove, {passive: false});
+    }
+
+    componentDidUpdate(prevProps: IAutoSlidesContainerProps, prevState: IAutoSlidesContainerState) {
+        if (prevState.currentSlideIndex !== this.state.currentSlideIndex) {
+            this.props.onChange!(this.state.currentSlideIndex);
+        }
     }
 
     componentWillUnmount() {
@@ -60,7 +76,7 @@ export class AutoSlidesContainer extends React.Component<IAutoSlidesContainerPro
 
     handleMouseWheel = (event: MouseWheelEvent) => {
         event.preventDefault();
-        if (!this.state.block) {
+        if (!this.block) {
             const delta = event.wheelDelta || -event.deltaY;
             if (this.prevWheel < Math.abs(delta)) {
                 if (delta < 0) {
@@ -79,7 +95,7 @@ export class AutoSlidesContainer extends React.Component<IAutoSlidesContainerPro
     };
 
     handleKeyDown = (event: KeyboardEvent) => {
-        if (!this.state.block) {
+        if (!this.block) {
             if (event.keyCode === 38) {
                 this.updateCurrentPage(false);
             }
@@ -95,7 +111,7 @@ export class AutoSlidesContainer extends React.Component<IAutoSlidesContainerPro
 
     handleTouchMove = (event: TouchEvent) => {
         event.preventDefault();
-        if (!this.state.block) {
+        if (!this.block) {
             const touchDelta = event.touches[0].pageY - this.touchStart;
             if (Math.abs(touchDelta) > 30) {
                 this.updateCurrentPage(touchDelta < 0);
@@ -106,12 +122,11 @@ export class AutoSlidesContainer extends React.Component<IAutoSlidesContainerPro
 
     updateCurrentPage(nextPage: boolean) {
         const currentSlideIndex = (nextPage ? 1 : -1) + this.state.currentSlideIndex;
-        if (currentSlideIndex < this.props.slides.length && currentSlideIndex >= 0) {
+        if (AutoSlidesContainer.isValidSlideIndex(currentSlideIndex, this.props)) {
             this.setState({
                 currentSlideIndex,
-                transition: true,
-                block: true
             });
+            this.block = true;
         }
     }
 
@@ -144,10 +159,7 @@ export class AutoSlidesContainer extends React.Component<IAutoSlidesContainerPro
     }
 
     onTransitionEnd = () => {
-        this.setState({
-            block: false,
-            transition: false
-        });
+        this.block = false;
     };
 
     render() {
