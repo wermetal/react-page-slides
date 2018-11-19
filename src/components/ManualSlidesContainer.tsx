@@ -9,7 +9,7 @@ interface IManualSlidesContainerProps {
     enableAutoScroll: boolean;
     slides: ISlideConfig[];
     parallax: ISlidePrallaxConfig;
-    currentSlideIndex: number;
+    currentSlideIndex?: number;
     onChange?: (index: number) => void;
 }
 
