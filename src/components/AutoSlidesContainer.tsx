@@ -1,9 +1,10 @@
 import * as React  from 'react';
-import {AutoSlide} from './AutoSlide';
+import {Slide} from './Slide';
 
 import {ISlideConfig} from "../models/ISlideConfig";
 import {CSSProperties} from "react";
 import {ISlidePrallaxConfig} from "../models/ISlidePrallaxConfig";
+import {AutoSlideBackground} from "./AutoSlideBackground";
 
 interface IAutoSlidesContainerProps {
     height: number;
@@ -138,18 +139,23 @@ export class AutoSlidesContainer extends React.Component<IAutoSlidesContainerPro
         const height = this.getHeight();
         return this.props.slides.map((props, index) => {
             const isCurrent = index === this.state.currentSlideIndex;
-            const isTop = index < this.state.currentSlideIndex;
             const isBottom = index > this.state.currentSlideIndex;
+            const isTop = index < this.state.currentSlideIndex;
+
             return (
-                <AutoSlide
-                    {...props}
-                    isCurrent={isCurrent}
-                    isTop={isTop}
-                    isBottom={isBottom}
-                    transitionSpeed={this.props.transitionSpeed}
-                    parallax={this.props.parallax}
-                    height={height}
-                    key={index}/>
+                <Slide height={height} key={index}>
+                    <AutoSlideBackground
+                        transitionSpeed={this.props.transitionSpeed}
+                        parallaxType={this.props.parallax.type}
+                        parallaxOffset={this.props.parallax.offset}
+                        isBottom={isBottom}
+                        isCurrent={isCurrent}
+                        isTop={isTop}
+                        height={this.getHeight()}
+                        style={props.style}
+                    />
+                    {props.content}
+                </Slide>
             );
         });
     }

@@ -1,8 +1,9 @@
 import * as React from 'react';
-import {ManualSlide} from './ManualSlide';
 import {ISlideConfig} from "../models/ISlideConfig";
 import {CSSProperties} from "react";
 import {ISlidePrallaxConfig} from "../models/ISlidePrallaxConfig";
+import {Slide} from "./Slide";
+import {ManualSlideBackground} from "./ManualSlideBackground";
 
 interface IManualSlidesContainerProps {
     height: number;
@@ -14,12 +15,8 @@ interface IManualSlidesContainerProps {
 }
 
 interface IManualSlidesContainerState {
-    scrollToTop: number;
     currentSlideIndex: number;
-    userSlideIndex?: number;
-    transition: boolean;
     scrollTop: number,
-    block: boolean;
 }
 
 export class ManualSlidesContainer extends React.PureComponent<IManualSlidesContainerProps, IManualSlidesContainerState> {
@@ -33,11 +30,8 @@ export class ManualSlidesContainer extends React.PureComponent<IManualSlidesCont
     }
 
     public state = {
-        scrollToTop: 0,
         currentSlideIndex: 0,
-        transition: false,
         scrollTop: 0,
-        block: false
     };
 
     private container: HTMLDivElement;
@@ -87,16 +81,19 @@ export class ManualSlidesContainer extends React.PureComponent<IManualSlidesCont
             const isTop = index < this.state.currentSlideIndex;
 
             return (
-                <ManualSlide
-                    {...props}
-                    isCurrent={isCurrent}
-                    isTop={isTop}
-                    isBottom={isBottom}
-                    scrollTop={isCurrent || isTop ? this.state.scrollTop : 0}
-                    parallax={this.props.parallax}
-                    height={height}
-                    key={index}
-                />
+                <Slide height={height} key={index}>
+                    <ManualSlideBackground
+                        scrollTop={isCurrent || isTop ? this.state.scrollTop : 0}
+                        parallaxType={this.props.parallax.type}
+                        parallaxOffset={this.props.parallax.offset}
+                        isBottom={isBottom}
+                        isCurrent={isCurrent}
+                        isTop={isTop}
+                        height={this.getHeight()}
+                        style={props.style}
+                    />
+                    {props.content}
+                </Slide>
             );
         });
     }
