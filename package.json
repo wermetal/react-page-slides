@@ -9,8 +9,8 @@
   "repository": "https://github.com/wermetal/react-page-slides.git",
   "homepage": "https://wermetal.github.io/react-page-slides",
   "files": [
-    "/src",
-    "/dist"
+    "/dist",
+    "/src"
   ],
   "keywords": [
     "fullpage",

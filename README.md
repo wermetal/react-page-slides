@@ -1,6 +1,6 @@
 # react-page-slides
 
-React component for reating fullscreen scrolling websites with parallax effect. Supports Typescript.
+React component for creating fullscreen scrolling websites with parallax effect. Supports Typescript.
 
 ## Installation
 ```sh
