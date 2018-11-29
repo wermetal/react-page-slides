@@ -13,7 +13,7 @@ interface IManualSlideProps {
     style: CSSProperties;
 }
 
-export class ManualSlideBackground extends React.Component<IManualSlideProps> {
+export class ManualSlideBackground extends React.PureComponent<IManualSlideProps> {
     render() {
         return (
             <div className="rps-slide-background" style={this.getBackgroundStyles()}/>

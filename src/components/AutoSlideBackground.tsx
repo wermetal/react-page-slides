@@ -13,7 +13,7 @@ interface IAutoSlideBackgroundProps {
     style: CSSProperties;
 }
 
-export class AutoSlideBackground extends React.Component<IAutoSlideBackgroundProps> {
+export class AutoSlideBackground extends React.PureComponent<IAutoSlideBackgroundProps> {
     render() {
         return (
             <div className="rps-slide-background" style={this.getBackgroundStyles()}/>
