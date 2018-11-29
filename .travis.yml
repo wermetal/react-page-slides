@@ -6,11 +6,16 @@ cache:
   - node_modules
 script:
   - npm run build-example
+  - npm run build
 deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN
-  keep-history: true
-  local-dir: ./example/dist
-  on:
-    branch: master
+  - provider: pages
+    skip-cleanup: true
+    github-token: $GITHUB_TOKEN
+    keep-history: true
+    local-dir: ./example/dist
+    on:
+      branch: master
+
+  - provider: npm
+    email: "wermetal@gmail.com"
+    api_key: $NPM_TOKEN
