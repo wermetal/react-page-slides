@@ -7,6 +7,10 @@ React component for reating fullscreen scrolling websites with parallax effect. 
 npm install --save react-page-slides
 ```
 
+## Demo
+
+[Click here](https://wermetal.github.io/react-page-slides/)
+
 ## Usage
 ```
 import React from 'react';
