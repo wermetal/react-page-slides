@@ -170,8 +170,7 @@ export class AutoSlidesContainer extends React.Component<IAutoSlidesContainerPro
 
     render() {
         return (
-            <div className="rps-auto-slides-container"
-                 style={this.getContainerStyle()}
+            <div style={this.getContainerStyle()}
                  onTransitionEnd={this.onTransitionEnd}
             >
                 {this.renderSlides()}
@@ -182,13 +181,13 @@ export class AutoSlidesContainer extends React.Component<IAutoSlidesContainerPro
     private getContainerStyle() {
         const scrollToTop = this.getScrollToTop();
         return {
-            transform: `translate3d(0px, ${scrollToTop}px, 0px)`,
-            transition: `all ${this.props.transitionSpeed}ms ease`,
             height: '100%',
             position: 'relative',
             touchAction: 'none',
             padding: 0,
-            margin: 0
+            margin: 0,
+            transform: `translate3d(0px, ${scrollToTop}px, 0px)`,
+            transition: `all ${this.props.transitionSpeed}ms ease`,
         } as CSSProperties;
     }
 }

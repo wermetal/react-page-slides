@@ -100,8 +100,7 @@ export class ManualSlidesContainer extends React.PureComponent<IManualSlidesCont
 
     render() {
         return (
-            <div className="rps-manual-slides-container"
-                 style={this.getContainerStyle()}
+            <div style={this.getContainerStyle()}
                  ref={(ref: HTMLDivElement) => {
                      this.container = ref
                  }}
