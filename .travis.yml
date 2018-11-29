@@ -19,3 +19,5 @@ deploy:
   - provider: npm
     email: "wermetal@gmail.com"
     api_key: $NPM_TOKEN
+    on:
+      tags: true

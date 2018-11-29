@@ -12,7 +12,6 @@
     "/src",
     "/dist"
   ],
-  "private": true,
   "keywords": [
     "fullpage",
     "parallax",
