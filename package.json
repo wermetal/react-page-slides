@@ -1,6 +1,7 @@
 {
   "name": "react-page-slides",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "description": "React component for creating fullscreen scrolling websites with parallax effect. Supports Typescript.",
   "license": "MIT",
   "author": {
     "name": "Andrii Golubenko",
@@ -19,7 +20,8 @@
     "react",
     "react-fullpage",
     "fullpage-react",
-    "fullpage-scroll"
+    "fullpage-scroll",
+    "slides"
   ],
   "main": "dist/index.js",
   "dependencies": {
