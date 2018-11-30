@@ -17,6 +17,7 @@ deploy:
       branch: master
 
   - provider: npm
+    skip_cleanup: true
     email: "wermetal@gmail.com"
     api_key: $NPM_TOKEN
     on:
