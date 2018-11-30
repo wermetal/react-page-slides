@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/wermetal/react-page-slides.svg?branch=master)](https://travis-ci.com/wermetal/react-page-slides)
+
 # react-page-slides
 
 React component for creating fullscreen scrolling websites with parallax effect. Supports Typescript.
