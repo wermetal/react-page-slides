@@ -49,8 +49,7 @@ export class AutoSlidesContainer extends React.Component<IAutoSlidesContainerPro
     };
 
     private touchStart: number;
-    private prevWheel = 0;
-    private scrollValue = 0;
+    private prevWheelDelta = 0;
     private block = false;
 
     componentDidMount() {
@@ -77,31 +76,24 @@ export class AutoSlidesContainer extends React.Component<IAutoSlidesContainerPro
 
     handleMouseWheel = (event: MouseWheelEvent) => {
         event.preventDefault();
+        const delta = event.wheelDelta || -event.deltaY;
         if (!this.block) {
-            const delta = event.wheelDelta || -event.deltaY;
-            if (this.prevWheel < Math.abs(delta)) {
-                if (delta < 0) {
-                    this.scrollValue--;
-                } else if (delta > 0) {
-                    this.scrollValue++;
-                }
-            }
-            this.prevWheel = Math.abs(delta);
-
-            if (Math.abs(this.scrollValue) > 5) {
+            if (Math.abs(this.prevWheelDelta) < Math.abs(delta) || delta % 120 === 0) {
                 this.updateCurrentPage(delta < 0);
-                this.scrollValue = 0;
             }
         }
+        this.prevWheelDelta = delta;
     };
 
     handleKeyDown = (event: KeyboardEvent) => {
         if (!this.block) {
-            if (event.keyCode === 38) {
-                this.updateCurrentPage(false);
-            }
-            if (event.keyCode === 40) {
-                this.updateCurrentPage(true);
+            switch (event.key) {
+                case "ArrowUp":
+                    this.updateCurrentPage(false);
+                    break;
+                case "ArrowDown":
+                    this.updateCurrentPage(true);
+                    break;
             }
         }
     };
